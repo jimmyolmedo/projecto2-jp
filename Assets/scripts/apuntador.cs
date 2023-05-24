@@ -41,6 +41,7 @@ public class apuntador : MonoBehaviour
             enLaMira = true;
 
         }
+
     }
 
 
@@ -71,15 +72,6 @@ public class apuntador : MonoBehaviour
         else
         {
             gameObject.GetComponent<SpriteRenderer>().color = Color.black;
-        }
-
-
-        if (Input.GetKeyDown(KeyCode.Mouse0))
-        {
-            if(enLaMira == true)
-            {
-
-            }
         }
 
     }
