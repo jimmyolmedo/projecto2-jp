@@ -9,7 +9,7 @@ public class apuntador : MonoBehaviour
     public Transform aimTransform;
     public bool enLaMira;
     public int damage;
-
+    Collider2D colliderEnemigo;
 
     void Start()
     {
@@ -21,7 +21,7 @@ public class apuntador : MonoBehaviour
     {
         MoverMira();
 
-        ataque();
+        Ataque();
     }
 
 
@@ -33,37 +33,7 @@ public class apuntador : MonoBehaviour
     }
 
 
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.gameObject.CompareTag("enemy"))
-        {
-            enLaMira = true;
-
-        }
-
-    }
-
-
-    private void OnTriggerStay2D(Collider2D collision)
-    {
-        if (Input.GetKeyDown(KeyCode.Mouse0))
-        {
-            if (enLaMira == true)
-            {
-                collision.gameObject.GetComponent<enemy>().Damage(damage);
-            }
-        }
-    }
-
-
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        enLaMira = false;
-    }
-
-
-    public void ataque()
+    public void Ataque()
     {
         if (enLaMira == true)
         {
@@ -74,6 +44,36 @@ public class apuntador : MonoBehaviour
             gameObject.GetComponent<SpriteRenderer>().color = Color.black;
         }
 
+        if (Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            if (enLaMira == true)
+            {
+                colliderEnemigo.GetComponent<enemy>().Damage(damage);
+            }
+        }
+
+    }
+
+
+     private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("enemy"))
+        {
+            colliderEnemigo = collision;
+            enLaMira = true;
+
+        }
+
+    }
+
+
+
+
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        enLaMira = false;
+        colliderEnemigo = null;
     }
 
 }
